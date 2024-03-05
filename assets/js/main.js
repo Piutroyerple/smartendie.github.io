@@ -94,6 +94,30 @@
     window.addEventListener('load', headerScrolled)
     onscroll(document, headerScrolled)
   }
+  // 获取元素
+var txt = document.querySelector("textarea");
+var btn = document.querySelector("button");
+var ul = document.querySelector("ul");
+
+// 给按钮绑定点击事件
+btn.onclick = function () {
+    if (txt.value === "") {
+        alert("您没有输入内容");
+    } else {
+        // 创建li元素作为留言区
+        var li = document.createElement("li");
+        li.innerHTML = txt.value + "<a href='javascript:;'>删除</a>";
+        txt.value = ""; // 添加之后清空文本框内容
+        ul.insertBefore(li, ul.children[0]); // 将留言添加到ul中，在最上方显示
+        // 给每个删除按钮绑定事件
+        var deleteLinks = document.querySelectorAll("a");
+        for (var i = 0; i < deleteLinks.length; i++) {
+            deleteLinks[i].onclick = function () {
+                ul.removeChild(this.parentNode); // 删除当前li元素
+            };
+        }
+    }
+};
 
   /**
    * Back to top button
